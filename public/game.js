@@ -38,11 +38,23 @@ document.addEventListener("keydown", ({ code }) => {
     player2Y -= paddle.speed;
   } else if (code === "Numpad2" && player2Y < canvas.height - paddle.height) {
     player2Y += paddle.speed;
+  } else if (code === "KeyP") {
+    togglePause();
   }
 });
 
+//pause or resume the game
+let paused = false;
+function togglePause() {
+  paused = !paused;
+}
+
 // game main execution
 function render() {
+  if (paused) {
+    requestAnimationFrame(render);
+    return;
+  }
   // Movement of the ball
   ball.x += ball.speedX;
   ball.y += ball.speedY;
